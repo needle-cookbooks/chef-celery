@@ -22,7 +22,7 @@ include_recipe "celery::default"
 case node[:platform]
 when "ubuntu","debian"
   template "/etc/default/celerybeat" do
-    source "celerybeat-default.erb"
+    source "celerybeat-defaults.erb"
     mode 0644
     owner "root"
     group "root"
