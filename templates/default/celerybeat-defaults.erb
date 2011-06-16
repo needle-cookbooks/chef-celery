@@ -1,17 +1,17 @@
-CELERYBEAT="<%= @node[:celeryd][:executable] %>"
-<% if @node[:celeryd][:chdir] %>
-CELERYBEAT_CHDIR="<%= @node[:celeryd][:chdir] %>"
+CELERYBEAT="<%= @node[:celerybeat][:executable] %>"
+<% if @node[:celerybeat][:chdir] %>
+CELERYBEAT_CHDIR="<%= @node[:celerybeat][:chdir] %>"
 <% end %>
-CELERYBEAT_OPTS="<%= @node[:celeryd][:opts] %>"
+CELERYBEAT_OPTS="<%= @node[:celerybeat][:opts] %>"
 CELERY_CONFIG_MODULE="<%= @node[:celery][:config_module] %>"
-CELERYBEAT_PIDFILE="<%= @node[:celeryd][:pid_file] %>"
-CELERYBEAT_LOG_LEVEL="<%= @node[:celeryd][:log_level] %>"
-CELERYBEAT_LOGFILE="<%= @node[:celeryd][:log_file] %>"
+CELERYBEAT_PIDFILE="<%= @node[:celerybeat][:pid_file] %>"
+CELERYBEAT_LOG_LEVEL="<%= @node[:celerybeat][:log_level] %>"
+CELERYBEAT_LOGFILE="<%= @node[:celerybeat][:log_file] %>"
 <% if @node[:celeryd][:user] %>
-CELERYBEAT_USER="<% @node[:celeryd][:user] %>"
+CELERYBEAT_USER="<% @node[:celerybeat][:user] %>"
 <% end %>
-<% if @node[:celeryd][:group] %>
-CELERYBEAT_GROUP="<% @node[:celeryd][:group] %>"
+<% if @node[:celerybeat][:group] %>
+CELERYBEAT_GROUP="<% @node[:celerybeat][:group] %>"
 <% end %>
 <% if @node[:celery][:virtualenv] %>
 VIRTUALENV="<%= @node[:celery][:virtualenv] %>"
