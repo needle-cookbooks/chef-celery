@@ -1,4 +1,5 @@
 default[:celery][:virtualenv] = nil
+default[:celery][:django] = false
 # celeryd specific attributes
 default[:celeryd][:pid_file] = "/var/run/celeryd.pid"
 default[:celeryd][:log_file] = "/var/log/celeryd.log"

@@ -16,3 +16,6 @@ CELERYBEAT_GROUP="<% @node[:celeryd][:group] %>"
 <% if @node[:celery][:virtualenv] %>
 VIRTUALENV="<%= @node[:celery][:virtualenv] %>"
 <% end %>
+<% if @node[:celery][:django] %>
+export DJANGO_SETTINGS_MODULE="settings"
+<% end %>
