@@ -13,3 +13,6 @@ CELERYD_USER="<% @node[:celeryd][:user] %>"
 <% if @node[:celeryd][:group] %>
 CELERYD_GROUP="<% @node[:celeryd][:group] %>"
 <% end %>
+<% if @node[:celery][:virtualenv] %>
+VIRTUALENV="<%= @node[:celery][:virtualenv] %>"
+<% end %>
