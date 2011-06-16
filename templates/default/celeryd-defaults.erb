@@ -4,9 +4,9 @@ CELERYD_CHDIR="<%= @node[:celeryd][:chdir] %>"
 <% end %>
 CELERYD_OPTS="<%= @node[:celeryd][:opts] %>"
 CELERY_CONFIG_MODULE="<%= @node[:celery][:config_module] %>"
-CELERYD_PID_FILE="<%= @node[:celeryd][:pid_file] %>"
+CELERYD_PIDFILE="<%= @node[:celeryd][:pid_file] %>"
 CELERYD_LOG_LEVEL="<%= @node[:celeryd][:log_level] %>"
-CELERYD_LOG_FILE="<%= @node[:celeryd][:log_file] %>"
+CELERYD_LOGFILE="<%= @node[:celeryd][:log_file] %>"
 <% if @node[:celeryd][:user] %>
 CELERYD_USER="<% @node[:celeryd][:user] %>"
 <% end %>
