@@ -28,7 +28,7 @@ when "ubuntu","debian"
     group "root"
   end
 
-  remote_file "/etc/init.d/celerybeat" do
+  cookbook_file "/etc/init.d/celerybeat" do
     source "celerybeat-init"
     mode 0755
     owner "root"
