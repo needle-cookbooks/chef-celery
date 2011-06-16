@@ -1,4 +1,4 @@
-CELERYD="<%= @node[:celeryd][:executable] %>
+CELERYD="<%= @node[:celeryd][:executable] %>"
 <% if @node[:celeryd][:chdir] %>
 CELERYD_CHDIR="<%= @node[:celeryd][:chdir] %>"
 <% end %>
