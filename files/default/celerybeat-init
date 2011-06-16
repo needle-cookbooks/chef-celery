@@ -91,8 +91,8 @@ DEFAULT_CELERYBEAT="celerybeat"
 
 # /etc/init.d/ssh: start and stop the celery task worker daemon.
 
-if test -f /etc/default/celeryd; then
-    . /etc/default/celeryd
+if test -f /etc/default/celerybeat; then
+    . /etc/default/celerybeat
 fi
 
 CELERYBEAT=${CELERYBEAT:-$DEFAULT_CELERYBEAT}
