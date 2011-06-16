@@ -24,6 +24,7 @@ if node[:celery][:virtualenv]
 end
 
 python_pip "celery" do
+  action :install
   if node[:celery][:virtualenv]
     virtualenv node[:celery][:virtualenv]
   end
