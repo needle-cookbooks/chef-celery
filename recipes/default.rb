@@ -20,7 +20,9 @@
 include_recipe "python"
 
 if node[:celery][:virtualenv]
-  python_virtualenv node[:celery][:virtualenv]
+  python_virtualenv node[:celery][:virtualenv] do
+    action :create
+  end
 end
 
 python_pip "celery" do
