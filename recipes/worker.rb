@@ -21,12 +21,6 @@ include_recipe "celery::default"
 
 case node[:platform]
 when "ubuntu","debian"
-  template "/etc/default/celeryd" do
-    source "celeryd-defaults.erb"
-    mode 0644
-    owner "root"
-    group "root"
-  end
 
   remote_file "/etc/init.d/celeryd" do
     source "celeryd-init"
@@ -38,6 +32,14 @@ when "ubuntu","debian"
   service "celeryd" do
     action :enable
     supports :start => true, :stop => true, :restart => true, :status => true
+  end
+
+  template "/etc/default/celeryd" do
+    source "celeryd-defaults.erb"
+    mode 0644
+    owner "root"
+    group "root"
+    notifies :restart, "service[celeryd]", :delayed
   end
 else
   log "recipe[celery::server] does not presently support platforms other than ubuntu and debian"

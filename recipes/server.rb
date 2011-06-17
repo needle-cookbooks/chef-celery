@@ -21,12 +21,6 @@ include_recipe "celery::default"
 
 case node[:platform]
 when "ubuntu","debian"
-  template "/etc/default/celerybeat" do
-    source "celerybeat-defaults.erb"
-    mode 0644
-    owner "root"
-    group "root"
-  end
 
   cookbook_file "/etc/init.d/celerybeat" do
     source "celerybeat-init"
@@ -38,6 +32,14 @@ when "ubuntu","debian"
   service "celerybeat" do
     action :enable
     supports :start => true, :stop => true, :restart => true, :status => true
+  end
+
+  template "/etc/default/celerybeat" do
+    source "celerybeat-defaults.erb"
+    mode 0644
+    owner "root"
+    group "root"
+    notifies :restart, "service[celerybeat]", :delayed
   end
 else
   log "recipe[celery::server] does not presently support platforms other than ubuntu and debian"
