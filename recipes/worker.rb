@@ -42,6 +42,6 @@ when "ubuntu","debian"
     notifies :restart, "service[celeryd]", :delayed
   end
 else
-  log "recipe[celery::server] does not presently support platforms other than ubuntu and debian"
+  log "recipe[celery::worker] does not presently support platforms other than ubuntu and debian"
   exit
 end
