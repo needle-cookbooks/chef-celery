@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: celery
-# Recipe:: server
+# Recipe:: scheduler
 #
 # Copyright 2011, Needle Inc.
 #
@@ -42,6 +42,6 @@ when "ubuntu","debian"
     notifies :restart, "service[celerybeat]", :delayed
   end
 else
-  log "recipe[celery::server] does not presently support platforms other than ubuntu and debian"
+  log "recipe[celery::scheduler] does not presently support platforms other than ubuntu and debian"
   exit
 end
