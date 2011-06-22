@@ -182,12 +182,17 @@ start_evcam () {
                            --pidfile $CELERYEV_PID_FILE
                            --exec $CELERYEV -- $CELERYEV_OPTS"
     if [ -n "$VIRTUALENV" ]; then
-        source $VIRTUALENV/bin/activate
-    fi
-    if $cmd; then
+      if source $VIRTUALENV/bin/activate; $cmd ; then
         log_end_msg 0
-    else
+      else
         log_end_msg 1
+      fi
+    else
+      if $cmd; then
+        log_end_msg 0
+      else
+        log_end_msg 1
+      fi
     fi
 }
 

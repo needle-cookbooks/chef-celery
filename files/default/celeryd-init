@@ -163,12 +163,17 @@ start_worker () {
                            --pidfile $CELERYD_PID_FILE
                            --exec $CELERYD -- $CELERYD_OPTS"
     if [ -n "$VIRTUALENV" ]; then
-        source $VIRTUALENV/bin/activate
-    fi
-    if $cmd; then
-        log_end_msg 0
+     if source $VIRTUALENV/bin/activate; $cmd ; then
+       log_end_msg 0
+     else
+       log_end_msg 1
+     fi
     else
-        log_end_msg 1
+      if $cmd; then
+          log_end_msg 0
+      else
+          log_end_msg 1
+      fi
     fi
 }
 
