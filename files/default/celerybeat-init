@@ -89,7 +89,7 @@ DEFAULT_LOG_FILE="/var/log/celerybeat.log"
 DEFAULT_LOG_LEVEL="INFO"
 DEFAULT_CELERYBEAT="celerybeat"
 
-# /etc/init.d/ssh: start and stop the celery task worker daemon.
+# /etc/init.d/celerybeat: start and stop the celery task worker daemon.
 
 if test -f /etc/default/celerybeat; then
     . /etc/default/celerybeat
@@ -112,15 +112,15 @@ fi
 
 # Extra start-stop-daemon options, like user/group.
 if [ -n "$CELERYBEAT_USER" ]; then
-    DAEMON_OPTS="$DAEMON_OPTS --chuid $CELERYBEAT_USER"
+    DAEMON_OPTS="$DAEMON_OPTS --uid $CELERYBEAT_USER"
 fi
 if [ -n "$CELERYBEAT_GROUP" ]; then
-    DAEMON_OPTS="$DAEMON_OPTS --group $CELERYBEAT_GROUP"
+    DAEMON_OPTS="$DAEMON_OPTS --gid $CELERYBEAT_GROUP"
 fi
 
-CELERYBEAT_CHDIR=${CELERYBEAT_CHDIR:-$CELERYD_CHDIR}
+CELERYBEAT_CHDIR=${CELERYBEAT_CHDIR:-$CELERYBEAT_CHDIR}
 if [ -n "$CELERYBEAT_CHDIR" ]; then
-    DAEMON_OPTS="$DAEMON_OPTS --chdir $CELERYBEAT_CHDIR"
+    DAEMON_OPTS="$DAEMON_OPTS --workdir $CELERYBEAT_CHDIR"
 fi
 
 
@@ -159,16 +159,15 @@ stop_worker () {
 }
 
 start_worker () {
-    cmd="start-stop-daemon --start $DAEMON_OPTS \
-                           --quiet \
-                           --oknodo \
-                           --background \
-                           --make-pidfile \
-                           $* \
-                           --pidfile $CELERYBEAT_PID_FILE
-                           --exec $CELERYBEAT -- $CELERYBEAT_OPTS"
+    cmd="$CELERYBEAT $DAEMON_OPTS \
+                    --detach \
+                    --pidfile=$CELERYBEAT_PID_FILE \
+                    --logfile=$CELERYBEAT_LOG_FILE \
+                    --loglevel=$CELERYBEAT_LOG_LEVEL \
+                    $CELERYBEAT_OPTS"
+
     if [ -n "$VIRTUALENV" ]; then
-      if source $VIRTUALENV/bin/activate; $cmd ; then
+      if . $VIRTUALENV/bin/activate; $cmd ; then
         log_end_msg 0
       else
         log_end_msg 1

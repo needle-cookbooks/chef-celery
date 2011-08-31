@@ -22,7 +22,7 @@ include_recipe "celery::default"
 case node[:platform]
 when "ubuntu","debian"
 
-  remote_file "/etc/init.d/celeryd" do
+  cookbook_file "/etc/init.d/celeryd" do
     source "celeryd-init"
     mode 0755
     owner "root"
