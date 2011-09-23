@@ -36,7 +36,7 @@ end
 
 python_pip "celery" do
   action :install
-  if node[:celery][:virtualenv]
+  if node.has_attribute?("celery_virtualenv")
     virtualenv node[:celery][:virtualenv]
   end
 end
