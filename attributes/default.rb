@@ -1,4 +1,5 @@
 default[:celery][:virtualenv] = nil
+default[:celery][:version] = nil
 default[:celery][:django] = false
 default[:celery][:config_module] = nil
 default[:celery][:logdir] = "/var/log/celery"
