@@ -39,4 +39,7 @@ python_pip "celery" do
   if node.has_attribute?("celery_virtualenv")
     virtualenv node[:celery][:virtualenv]
   end
+  if node.has_attribute?("celery_version")
+    version node[:celery][:version]
+  end
 end
