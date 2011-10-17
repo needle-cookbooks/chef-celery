@@ -21,3 +21,11 @@ VIRTUALENV="<%= @node[:celery][:virtualenv] %>"
 <% if @node[:celery][:django] %>
 export DJANGO_SETTINGS_MODULE="settings"
 <% end %>
+<% if @node[:celery][:celeryd_use_amqp] %>
+# AMQP specific settings
+CELERY_AMQP_TASK_RESULT_EXPIRES=<%= @node[:celery][:amqp_task_result_expires] %>
+CELERY_RESULT_EXCHANGE="<%= @node[:celery][:amqp_result_exchange] %>"
+CELERY_RESULT_EXCHANGE_TYPE="<%= @node[:celery][:amqp_result_exchange_type] %>"
+CELERY_RESULT_SERIALIZER="<%= @node[:celery][:amqp_result_serializer] %>"
+CELERY_RESULT_PERSISTENT=<%= @node[:celery][:amqp_result_persistent] ? 'True' : 'False' %>
+<% end %>
