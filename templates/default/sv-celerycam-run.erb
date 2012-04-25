@@ -9,8 +9,5 @@ if [ -n "$VIRTUALENV" ]; then
   . $VIRTUALENV/bin/activate; $cmd
 fi
 
-if [ -n "$CELERYD_CHDIR" ]; then
-  CELERYCAM = "$CELERYD_CHDIR/manage.py celerycam"
-fi
+exec $CELERYD_CHDIR/manage.py celerycam
 
-exec $CELERYCAM
