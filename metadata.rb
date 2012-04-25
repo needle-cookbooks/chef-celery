@@ -6,4 +6,5 @@ long_description IO.read(File.join(File.dirname(__FILE__), 'README.rdoc'))
 version          "0.0.3"
 supports        'debian'
 supports        'ubuntu'
-depends         "python"
+depends         'python'
+depends         'runit'
