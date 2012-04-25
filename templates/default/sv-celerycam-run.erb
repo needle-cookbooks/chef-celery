@@ -1,0 +1,16 @@
+#!/bin/bash
+exec 2>&1
+
+if test -f /etc/default/celeryd; then
+  . /etc/default/celeryd
+fi
+
+if [ -n "$VIRTUALENV" ]; then
+  . $VIRTUALENV/bin/activate; $cmd
+fi
+
+if [ -n "$CELERYD_CHDIR" ]; then
+  CELERYCAM = "$CELERYD_CHDIR/manage.py celerycam"
+fi
+
+exec $CELERYCAM
