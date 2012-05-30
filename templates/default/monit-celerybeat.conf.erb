@@ -1,7 +1,7 @@
-check process celeryd with pidfile <%= node[:celery][:celerybeat_pid_file] %>
+check process celerybeat with pidfile <%= node[:celery][:celerybeat_pid_file] %>
   group "celery"
-  start "/etc/init.d/celeryd start"
-  stop "/etc/init.d/celeryd stop"
+  start "/etc/init.d/celerybeat start"
+  stop "/etc/init.d/celerybeat stop"
   if totalmem > 175 Mb then restart
   if changed pid then restart
   if 3 restarts within 5 cycles then timeout
