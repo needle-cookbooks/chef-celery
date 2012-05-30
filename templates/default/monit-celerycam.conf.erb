@@ -1,0 +1,7 @@
+check process celerycam with pidfile "/etc/sv/celerycam/supervise/pid"
+  group "celery"
+  start "/usr/bin/sv start celerycam"
+  stop "/usr/bin/sv stop celerycam"
+  if totalmem > 175 Mb then restart
+  if changed pid then restart
+  if 3 restarts within 5 cycles then timeout
