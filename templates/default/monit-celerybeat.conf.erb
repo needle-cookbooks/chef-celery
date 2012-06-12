@@ -4,4 +4,10 @@ check process celerybeat with pidfile <%= node[:celery][:celerybeat_pid_file] %>
   stop "/etc/init.d/celerybeat stop"
   if totalmem > 175 Mb then restart
   if changed pid then restart
+  <%- if node.recipes.include?('monit::pagerduty') -%>
+  if 3 restarts within 5 cycles
+  	then exec "/etc/monit/pagerduty-trigger celerybeat"
+  else if passed for 3 cycles
+  	then exec "/etc/monit/pagerduty-resolve celerybeat"
+  <%- end -%>
   if 3 restarts within 5 cycles then timeout
