@@ -8,3 +8,9 @@ service "celerymon" do
   start_command "sv start celerymon"
 end
 
+# Install cloudkick plugin to monitor celery tasks
+template "/usr/lib/cloudkick-agent/plugins/cloudkick-celerymon.py" do
+  source "cloudkick-celerymon.py.erb"
+  mode 0755
+  action :create
+end

@@ -20,3 +20,10 @@ if node['recipes'].include?('celery::celerycam')
     cookbook 'celery'
   end
 end
+
+if node['recipes'].include?('celery::celerymon')
+  monitrc 'celerymon' do
+    source 'monit-celerymon.conf.erb'
+    cookbook 'celery'
+  end
+end

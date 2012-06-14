@@ -1,11 +1,13 @@
 import urllib, datetime, time, simplejson
 
+baseurl = 'http://localhost:<%= node[:celery][:celerymon_port] %>'
+
 try:
-    tasks = simplejson.loads(urllib.urlopen('http://localhost:8989/api/task/name/').read())
+    tasks = simplejson.loads(urllib.urlopen('%s/api/task/name/' % baseurl).read())
 except IOError:
     print 'status err could not connect to celerymon'
 
-error = 3720
+error = <%= node[:celery][:celerymon_error_seconds] %>
 
 everything_ok = False
 errored_things = set()
@@ -23,7 +25,7 @@ TASK_STATES = (
         )
 
 for task in tasks:
-    request = urllib.urlopen('http://localhost:8989/api/task/name/%s' % task)
+    request = urllib.urlopen('%s/api/task/name/%s' % (baseurl, task))
     response = simplejson.loads(request.read())
     # Get the very first (last) entry 
     result = response[0][1]
@@ -45,7 +47,7 @@ else:
     print "status err %s tasks are late" % ' '.join(errored_things)
 
 
-all_tasks = simplejson.loads(urllib.urlopen('http://localhost:8989/api/task/').read())
+all_tasks = simplejson.loads(urllib.urlopen('%s/api/task/' % baseurl).read())
 counters = dict([(key.lower(), 0) for key in TASK_STATES])
 for task in all_tasks:
     task = task[1]
