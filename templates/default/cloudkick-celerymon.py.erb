@@ -42,7 +42,7 @@ for task in tasks:
 
 if everything_ok:
     print "status ok all celery tasks are up to date"
-if not everything_ok and not len(tasks):
+elif not everything_ok and not len(tasks):
     print "status err No tasks registered!"
 else:
     print "status err %s tasks are late" % ' '.join(errored_things)
