@@ -43,3 +43,13 @@ python_pip "celery" do
     version node[:celery][:version]
   end
 end
+
+python_pip "celerymon" do
+  action :install
+  if node.has_attribute?("celery_virtualenv")
+    virtualenv node[:celery][:virtualenv]
+  end
+  if node.has_attribute?("celerymon_version")
+    version node[:celery][:version]
+  end
+end
