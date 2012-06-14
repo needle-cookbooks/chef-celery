@@ -33,3 +33,4 @@ default[:celery][:celerybeat_chdir] = nil
 default[:celery][:celerybeat_opts] =  nil
 # celerymon specific attributes
 default[:celery][:celerymon_port] = 8989
+default[:celery][:celerymon_error_seconds] = 3720
