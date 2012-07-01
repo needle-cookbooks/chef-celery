@@ -7,5 +7,6 @@ version          "0.0.4"
 supports        'debian'
 supports        'ubuntu'
 depends         'python'
-depends         'runit'
+depends		'runit'
+depends         'supervisord'
 suggests        'monit'
