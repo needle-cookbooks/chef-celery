@@ -1,1 +1,1 @@
-include_recipe 'celerybeat'
+include_recipe 'celery::celerybeat'

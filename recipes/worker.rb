@@ -1,1 +1,1 @@
-include_recipe 'celeryd'
+include_recipe 'celery::celeryd'
