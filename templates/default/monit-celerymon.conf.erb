@@ -1,0 +1,13 @@
+check process celerymon with pidfile "/etc/sv/celerymon/supervise/pid"
+  group "celery"
+  start "/usr/bin/sv start celerymon -P <%= node[:celery][:celerymon_port] %>"
+  stop "/usr/bin/sv stop celerymon -P <%= node[:celery][:celerymon_port] %>"
+  if changed pid then restart
+  <%- if node.recipes.include?('monit::pagerduty') -%>
+  if 3 restarts within 5 cycles
+  	then exec "/etc/monit/pagerduty-trigger celerymon"
+  else if passed for 3 cycles
+  	then exec "/etc/monit/pagerduty-resolve celerymon"
+  <%- end -%>
+  if 3 restarts within 5 cycles then timeout
+
