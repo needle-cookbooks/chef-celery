@@ -31,6 +31,10 @@ define :celery_worker, :enable => true, :virtualenv => false, :logfile => "/var/
       celery_command = "sh /usr/local/bin/runinenv #{params[:virtualenv]} #{celery_command}"
     end
 
+    params[:options].each do |k,v|
+      celery_command = celery_command + " --#{k}=#{v}"
+    end
+
     supervisord_program "celeryd-#{params[:name]}" do
       command celery_command
       directory params[:directory]
