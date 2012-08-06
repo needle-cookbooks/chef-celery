@@ -3,6 +3,6 @@
 <%- when String -%>
 <%= k %>="<%= v %>"
 <%- when TrueClass,FalseClass %>
-<%= k %>=<%= if v 'True' ? 'False' %>
+<%= k %>=<%= v ? 'True' : 'False' %>
 <%- end -%>
 <%- end -%>
