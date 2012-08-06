@@ -53,6 +53,7 @@ define :celery_beat, :enable => true, :virtualenv => false, :logfile => "/var/lo
       stopwaitsecs params[:stopwaitsecs]
       numprocs 1
       priority 999
+      action :supervise
     end
 
     # supervisord should automatically start the service, but we want a service 

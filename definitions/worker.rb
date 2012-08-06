@@ -39,6 +39,7 @@ define :celery_worker, :enable => true, :virtualenv => false, :logfile => "/var/
       startsecs params[:startsecs]
       stopwaitsecs params[:stopwaitsecs]
       priority 998
+      action :supervise
     end
   when false
     Chef::Log.fatal("celery: the celery definition does not currently support disable action")
