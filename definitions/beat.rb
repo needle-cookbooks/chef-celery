@@ -1,6 +1,5 @@
 @default_options = {
-  'loglevel' => 'info',
-  'schedule' => '/var/lib/celery/celerybeat-schedule'
+  'loglevel' => 'info'
 }
 
 define :celery_beat, :enable => true, :virtualenv => false, :logfile => "/var/log/celerybeat.log", :loglevel => "INFO", :startsecs => 10, :django => false, :stopwaitsecs => 600, :options => @default_options do
