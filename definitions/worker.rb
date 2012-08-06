@@ -4,6 +4,8 @@ define :celery_worker, :enable => true, :virtualenv => false, :logfile => "/var/
   when true
     include_recipe 'supervisord'
 
+    celery_command = String.new
+
     user params[:user] if params[:user]
     group params[:group] if params[:group]
 
@@ -19,17 +21,17 @@ define :celery_worker, :enable => true, :virtualenv => false, :logfile => "/var/
 
     if params[:django]
       managepy = ::File.join(params[:django],'manage.py')
-      @celery_command = managepy + " celeryd --loglevel " + params[:loglevel]
+      celery_command = managepy + " celeryd --loglevel " + params[:loglevel]
     else
-      @celery_command = "celeryd --loglevel " + params[:loglevel]
+      celery_command = "celeryd --loglevel " + params[:loglevel]
     end
 
     if params[:virtualenv]
-      @celery_command = "sh /usr/local/bin/runinenv #{params[:directory]} #{@celery_command}"
+      celery_command = "sh /usr/local/bin/runinenv #{params[:directory]} #{celery_command}"
     end
 
     supervisord_program "celeryd-#{params[:name]}" do
-      command @celery_command
+      command celery_command
       directory params[:directory]
       autostart true
       autorestart "true"

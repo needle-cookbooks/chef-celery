@@ -11,6 +11,7 @@ define :celery_beat, :enable => true, :virtualenv => false, :logfile => "/var/lo
     include_recipe 'supervisord'
 
     celery_command = String.new
+
     user params[:user] if params[:user]
     group params[:group] if params[:group]
 
