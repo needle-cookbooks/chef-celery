@@ -12,7 +12,7 @@ define :celery_beat, :enable => true, :virtualenv => false, :startsecs => 10, :d
     end
 
     unless params[:options].has_key?('logfile')
-      params[:options].merge!({'logfile' => "/var/log/celery/celerybeat-#{params[:name]}"})
+      params[:options].merge!({'logfile' => "/var/log/celery/celerybeat-#{params[:name]}.log"})
     end
 
     user params[:user] if params[:user]

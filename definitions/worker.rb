@@ -11,7 +11,7 @@ define :celery_worker, :enable => true, :virtualenv => false, :startsecs => 10, 
     end
 
     unless params[:options].has_key?('logfile')
-      params[:options].merge!({'logfile' => "/var/log/celery/celeryd-#{params[:name]}"})
+      params[:options].merge!({'logfile' => "/var/log/celery/celeryd-#{params[:name]}.log"})
     end
 
     user params[:user] if params[:user]

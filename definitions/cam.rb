@@ -12,7 +12,7 @@ define :celery_cam, :enable => true, :virtualenv => false, :startsecs => 10, :dj
     end
 
     unless params[:options].has_key?('logfile')
-      params[:options].merge!({'logfile' => "/var/log/celery/celerycam-#{params[:name]}"})
+      params[:options].merge!({'logfile' => "/var/log/celery/celerycam-#{params[:name]}.log"})
     end
 
     user params[:user] if params[:user]
