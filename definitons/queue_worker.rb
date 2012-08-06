@@ -1,4 +1,4 @@
-define :celeryd_node
+define :celeryd_node do
 	include_recipe 'runit'
 
 	#user params[:user]
