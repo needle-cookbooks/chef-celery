@@ -32,7 +32,7 @@ define :celery_beat, :enable => true, :virtualenv => false, :logfile => "/var/lo
     end
 
     if params[:virtualenv]
-      celery_command = "sh /usr/local/bin/runinenv #{params[:directory]} #{celery_command}"
+      celery_command = "sh /usr/local/bin/runinenv #{params[:virtualenv]} #{celery_command}"
     end
 
     params[:options].each do |k,v|

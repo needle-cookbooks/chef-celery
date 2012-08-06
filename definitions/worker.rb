@@ -27,7 +27,7 @@ define :celery_worker, :enable => true, :virtualenv => false, :logfile => "/var/
     end
 
     if params[:virtualenv]
-      celery_command = "sh /usr/local/bin/runinenv #{params[:directory]} #{celery_command}"
+      celery_command = "sh /usr/local/bin/runinenv #{params[:virtualenv]} #{celery_command}"
     end
 
     supervisord_program "celeryd-#{params[:name]}" do
