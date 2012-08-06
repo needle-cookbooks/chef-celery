@@ -1,4 +1,4 @@
-define :celery_worker, :action => :enable, :virtualenv => false, :logfile => "/var/log/celeryd-#{params[:name]}", :loglevel => "INFO", :startsecs => 10, :django => false, :stopwaitsecs => 600, :options => {} do
+define :celery_worker, :action => :enable, :virtualenv => false, :logfile => "/var/log/celeryd.log", :loglevel => "INFO", :startsecs => 10, :django => false, :stopwaitsecs => 600, :options => {} do
 
   case params[:action]
   when :enable

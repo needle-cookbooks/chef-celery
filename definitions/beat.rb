@@ -3,7 +3,7 @@
   'schedule' => '/var/lib/celery/celerybeat-schedule'
 }
 
-define :celery_beat, :action => :enable, :virtualenv => false, :logfile => "/var/log/celeryd-#{params[:name]}", :loglevel => "INFO", :startsecs => 10, :django => false, :stopwaitsecs => 600, :options => @default_options do
+define :celery_beat, :action => :enable, :virtualenv => false, :logfile => "/var/log/celerybeat.log", :loglevel => "INFO", :startsecs => 10, :django => false, :stopwaitsecs => 600, :options => @default_options do
 
   case params[:action]
   when :enable
