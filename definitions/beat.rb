@@ -10,6 +10,7 @@ define :celery_beat, :enable => true, :virtualenv => false, :logfile => "/var/lo
 
     include_recipe 'supervisord'
 
+    celery_command = String.new
     user params[:user] if params[:user]
     group params[:group] if params[:group]
 
@@ -25,23 +26,23 @@ define :celery_beat, :enable => true, :virtualenv => false, :logfile => "/var/lo
 
     if params[:django]
       managepy = ::File.join(params[:django],'manage.py')
-      @celery_command = managepy + " celerybeat"
+      celery_command = managepy + " celerybeat"
     else
-      @celery_command = "celerybeat"
+      celery_command = "celerybeat"
     end
 
     if params[:virtualenv]
-      @celery_command = "sh /usr/local/bin/runinenv #{params[:directory]} #{@celery_command}"
+      celery_command = "sh /usr/local/bin/runinenv #{params[:directory]} #{celery_command}"
     end
 
     params[:options].each do |k,v|
-      @celery_command = @celery_command + " --#{k}=#{v}"
+      celery_command = celery_command + " --#{k}=#{v}"
     end
 
-    Chef::Log.info("celery: generated @celery_command as: " + @celery_command.inspect)
+    Chef::Log.info("celery: generated celery_command as: " + celery_command.inspect)
 
     supervisord_program "celerybeat-#{params[:name]}" do
-      command @celery_command
+      command celery_command
       directory params[:directory]
       autostart true
       autorestart true
