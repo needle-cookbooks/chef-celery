@@ -22,10 +22,9 @@ define :celery_worker, :enable => true, :virtualenv => false, :logfile => "/var/
 
     if params[:django]
       managepy = ::File.join(params[:django],'manage.py')
-      celery_command = managepy + " celeryd --loglevel " + params[:loglevel]
+      celery_command = managepy + " celeryd --events"
     else
-      celery_command = "celeryd --loglevel " + params[:loglevel]
-    end
+      celery_command = "celeryd --events"
 
     if params[:virtualenv]
       celery_command = "sh /usr/local/bin/runinenv #{params[:virtualenv]} #{celery_command}"
@@ -37,7 +36,7 @@ define :celery_worker, :enable => true, :virtualenv => false, :logfile => "/var/
 
     supervisord_program "celeryd-#{params[:name]}" do
       command celery_command
-      directory params[:directory]
+      directory params[:directory] if params[:directory]
       autostart true
       autorestart "true"
       user params[:user] if params[:user]
