@@ -1,7 +1,7 @@
-define :celery_worker, :action => :enable, :virtualenv => false, :logfile => "/var/log/celeryd.log", :loglevel => "INFO", :startsecs => 10, :django => false, :stopwaitsecs => 600, :options => {} do
+define :celery_worker, :enable => true, :virtualenv => false, :logfile => "/var/log/celeryd.log", :loglevel => "INFO", :startsecs => 10, :django => false, :stopwaitsecs => 600, :options => {} do
 
-  case params[:action]
-  when :enable
+  case params[:enable]
+  when true
     include_recipe 'supervisord'
 
     user params[:user] if params[:user]
@@ -40,7 +40,7 @@ define :celery_worker, :action => :enable, :virtualenv => false, :logfile => "/v
       stopwaitsecs params[:stopwaitsecs]
       priority 998
     end
-  when :disable
+  when false
     Chef::Log.fatal("celery: the celery definition does not currently support disable action")
   end
 end

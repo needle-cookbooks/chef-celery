@@ -3,10 +3,10 @@
   'schedule' => '/var/lib/celery/celerybeat-schedule'
 }
 
-define :celery_beat, :action => :enable, :virtualenv => false, :logfile => "/var/log/celerybeat.log", :loglevel => "INFO", :startsecs => 10, :django => false, :stopwaitsecs => 600, :options => @default_options do
+define :celery_beat, :enable => true, :virtualenv => false, :logfile => "/var/log/celerybeat.log", :loglevel => "INFO", :startsecs => 10, :django => false, :stopwaitsecs => 600, :options => @default_options do
 
-  case params[:action]
-  when :enable
+  case params[:enable]
+  when true
 
     include_recipe 'supervisord'
 
@@ -66,7 +66,7 @@ define :celery_beat, :action => :enable, :virtualenv => false, :logfile => "/var
       action :nothing
     end
 
-  when :disable
+  when false
     Chef::Log.fatal("celery: the celery definition does not currently support disable action")
   end
 
