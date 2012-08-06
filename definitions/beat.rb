@@ -1,8 +1,4 @@
-@default_options = {
-  'loglevel' => 'info'
-}
-
-define :celery_beat, :enable => true, :virtualenv => false, :logfile => "/var/log/celerybeat.log", :loglevel => "INFO", :startsecs => 10, :django => false, :stopwaitsecs => 600, :options => @default_options do
+define :celery_beat, :enable => true, :virtualenv => false, :startsecs => 10, :django => false, :stopwaitsecs => 600, :options => {} do
 
   case params[:enable]
   when true
@@ -10,6 +6,14 @@ define :celery_beat, :enable => true, :virtualenv => false, :logfile => "/var/lo
     include_recipe 'supervisord'
 
     celery_command = String.new
+
+    unless params[:options].has_key?('loglevel')
+      params[:options].merge!({'loglevel' => 'info'})
+    end
+
+    unless params[:options].has_key?('logfile')
+      params[:options].merge!({'logfile' => "/var/log/celery/celerybeat-#{params[:name]}"})
+    end
 
     user params[:user] if params[:user]
     group params[:group] if params[:group]
