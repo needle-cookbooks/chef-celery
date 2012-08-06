@@ -38,6 +38,8 @@ define :celery_beat, :enable => true, :virtualenv => false, :logfile => "/var/lo
       @celery_command = @celery_command + " --#{k}=#{v}"
     end
 
+    Chef::Log.info("celery: generated @celery_command as: " + @celery_command.inspect)
+
     supervisord_program "celerybeat-#{params[:name]}" do
       command @celery_command
       directory params[:directory]
