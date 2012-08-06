@@ -25,7 +25,8 @@ define :celery_worker, :enable => true, :virtualenv => false, :logfile => "/var/
       celery_command = managepy + " celeryd --events"
     else
       celery_command = "celeryd --events"
-
+    end
+    
     if params[:virtualenv]
       celery_command = "sh /usr/local/bin/runinenv #{params[:virtualenv]} #{celery_command}"
     end
