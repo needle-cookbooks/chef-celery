@@ -26,7 +26,7 @@ define :celery_worker, :enable => true, :virtualenv => false, :logfile => "/var/
     else
       celery_command = "celeryd --events"
     end
-    
+
     if params[:virtualenv]
       celery_command = "sh /usr/local/bin/runinenv #{params[:virtualenv]} #{celery_command}"
     end
@@ -37,7 +37,7 @@ define :celery_worker, :enable => true, :virtualenv => false, :logfile => "/var/
 
     supervisord_program "celeryd-#{params[:name]}" do
       command celery_command
-      directory params[:directory] if params[:directory]
+      directory params[:directory]
       autostart true
       autorestart "true"
       user params[:user] if params[:user]
