@@ -18,6 +18,7 @@ define :celery_beat, :enable => true, :virtualenv => false, :logfile => "/var/lo
       # runinenv script courtesy parente (https://gist.github.com/826961)
       cookbook_file "/usr/local/bin/runinenv" do
         source "runinenv.sh"
+        cookbook "celery"
         owner "root"
         group "root"
         mode "0755"
