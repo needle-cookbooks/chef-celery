@@ -7,14 +7,6 @@ define :celery_mon, :enable => true, :virtualenv => false, :startsecs => 10, :dj
 
     celery_command = String.new
 
-    unless params[:options].has_key?('loglevel')
-      params[:options].merge!({'loglevel' => 'info'})
-    end
-
-    unless params[:options].has_key?('logfile')
-      params[:options].merge!({'logfile' => "/var/log/celery/celerymon-#{params[:name]}.log"})
-    end
-
     user params[:user] if params[:user]
     group params[:group] if params[:group]
 
