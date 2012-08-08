@@ -1,31 +1,8 @@
-<% if @node[:celery][:celeryd_chdir] %>
-CELERYD_CHDIR="<%= @node[:celery][:celeryd_chdir] %>"
-<% end %>
-CELERYD="<%= @node[:celery][:celeryd_cmd] %>"
-CELERYD_MULTI="<%= @node[:celery][:celeryd_multi_cmd] %>"
-CELERYD_OPTS="<%= @node[:celery][:celeryd_opts] %>"
-CELERY_CONFIG_MODULE="<%= @node[:celery][:config_module] %>"
-CELERYD_PIDFILE="<%= @node[:celery][:celeryd_pid_file] %>"
-CELERYD_LOG_LEVEL="<%= @node[:celery][:celeryd_log_level] %>"
-CELERYD_LOGFILE="<%= @node[:celery][:celeryd_log_file] %>"
-CELERYCTL="<%= @node[:celery][:celeryctl_cmd] %>"
-<% if @node[:celery][:celeryd_user] %>
-CELERYD_USER="<% @node[:celery][:celeryd_user] %>"
-<% end %>
-<% if @node[:celery][:celeryd_group] %>
-CELERYD_GROUP="<% @node[:celery][:celeryd_group] %>"
-<% end %>
-<% if @node[:celery][:virtualenv] %>
-VIRTUALENV="<%= @node[:celery][:virtualenv] %>"
-<% end %>
-<% if @node[:celery][:django] %>
-export DJANGO_SETTINGS_MODULE="settings"
-<% end %>
-<% if @node[:celery][:celeryd_use_amqp] %>
-# AMQP specific settings
-CELERY_AMQP_TASK_RESULT_EXPIRES=<%= @node[:celery][:amqp_task_result_expires] %>
-CELERY_RESULT_EXCHANGE="<%= @node[:celery][:amqp_result_exchange] %>"
-CELERY_RESULT_EXCHANGE_TYPE="<%= @node[:celery][:amqp_result_exchange_type] %>"
-CELERY_RESULT_SERIALIZER="<%= @node[:celery][:amqp_result_serializer] %>"
-CELERY_RESULT_PERSISTENT=<%= @node[:celery][:amqp_result_persistent] ? 'True' : 'False' %>
-<% end %>
+<%- @options.each do |k,v| -%>
+<%- case v.class -%>
+<%- when String -%>
+<%= k %>="<%= v %>"
+<%- when TrueClass,FalseClass %>
+<%= k %>=<%= v ? 'True' : 'False' %>
+<%- end -%>
+<%- end -%>
