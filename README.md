@@ -11,7 +11,8 @@ Depends on the following cookbooks:
 
 ### Attributes
 
-celery.version
+`celery.version` - desired version of celery, defaults to nil (installs latest version)
+`celerymon.version` - desired version of celery, defaults to nil (installs latest version)
 
 ### Defintions
 
@@ -39,7 +40,8 @@ virtualenv_path = '/path/to/virtualenv'
 celery_opts = { "broker" => "amqp://guest:guest@localhost/%%2Fmyappvhost" }
 
 celeryd_opts = {
-  "broker" => "amqp://guest:guest@localhost/%%2Fmyappvhost",
+  # have to escape the % in the vhost name with another % for supervisord
+  "broker" => "amqp://guest:guest@localhost/%%2Fmyappvhost", 
   "concurrency" => 10,
   "queues" => "celery"
 }
