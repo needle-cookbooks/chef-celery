@@ -18,6 +18,12 @@ define :celery_cam, :enable => true, :virtualenv => false, :startsecs => 10, :dj
     user params[:user] if params[:user]
     group params[:group] if params[:group]
 
+    directory File.dirname(params[:options][:logfile]) do
+      owner params[:user] if params[:user]
+      group params[:group] if params[:group]
+      mode "0755"
+    end
+
     if params[:virtualenv]
       # runinenv script courtesy parente (https://gist.github.com/826961)
       cookbook_file "/usr/local/bin/runinenv" do
