@@ -1,8 +1,0 @@
-<%- @options.each do |k,v| -%>
-<%- case v.class -%>
-<%- when String -%>
-<%= k %>="<%= v %>"
-<%- when TrueClass,FalseClass %>
-<%= k %>=<%= v ? 'True' : 'False' %>
-<%- end -%>
-<%- end -%>
