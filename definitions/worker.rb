@@ -18,7 +18,7 @@ define :celery_worker, :enable => true, :virtualenv => false, :startsecs => 10, 
     user params[:user] if params[:user]
     group params[:group] if params[:group]
 
-    directory File.dirname(params[:options][:logfile]) do
+    directory File.dirname(params[:options]['logfile']) do
       owner params[:user] if params[:user]
       group params[:group] if params[:group]
       mode "0755"
