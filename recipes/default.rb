@@ -18,38 +18,3 @@
 #
 
 include_recipe "python"
-
-directory node[:celery][:logdir]
-
-template "/etc/logrotate.d/celery" do
-  source "celery-logrotate.erb"
-  owner "root"
-  group "root"
-  mode 0640
-end
-
-if node[:celery][:virtualenv]
-  python_virtualenv node[:celery][:virtualenv] do
-    action :create
-  end
-end
-
-python_pip "celery" do
-  action :install
-  if node.has_attribute?("celery_virtualenv")
-    virtualenv node[:celery][:virtualenv]
-  end
-  if node.has_attribute?("celery_version")
-    version node[:celery][:version]
-  end
-end
-
-python_pip "celerymon" do
-  action :install
-  if node.has_attribute?("celery_virtualenv")
-    virtualenv node[:celery][:virtualenv]
-  end
-  if node.has_attribute?("celerymon_version")
-    version node[:celery][:version]
-  end
-end

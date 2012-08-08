@@ -2,6 +2,7 @@ define :celery_worker, :enable => true, :virtualenv => false, :startsecs => 10, 
 
   case params[:enable]
   when true
+    include_recipe 'python'
     include_recipe 'supervisord'
 
     celery_command = String.new

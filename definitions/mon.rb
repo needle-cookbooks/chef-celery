@@ -2,7 +2,7 @@ define :celery_mon, :enable => true, :virtualenv => false, :startsecs => 10, :dj
 
   case params[:enable]
   when true
-
+    include_recipe 'python'
     include_recipe 'supervisord'
 
     celery_command = String.new
@@ -37,6 +37,12 @@ define :celery_mon, :enable => true, :virtualenv => false, :startsecs => 10, :dj
     end
 
     Chef::Log.info("celery: generated celery_command as: " + celery_command.inspect)
+
+    python_pip 'celerymon' do
+      version node[:celery][:version] unless node[:celery][:version].nil?
+      virtualenv params[:virtualenv] if params[:virtualenv]
+      action :install
+    end
 
     supervisord_program "celerymon-#{params[:name]}" do
       command celery_command
