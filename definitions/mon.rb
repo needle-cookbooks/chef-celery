@@ -42,7 +42,7 @@ define :celery_mon, :enable => true, :virtualenv => false, :startsecs => 10, :dj
       celery_command = celery_command + " --#{k}=#{v}"
     end
 
-    Chef::Log.info("celery: generated celery_command as: " + celery_command.inspect)
+    Chef::Log.debug("celery_mon: generated celery_command as: " + celery_command.inspect)
 
     python_pip 'celerymon' do
       version node[:celery][:version] unless node[:celery][:version].nil?
