@@ -70,7 +70,7 @@ define :celery_mon, :enable => true, :virtualenv => false, :startsecs => 10, :dj
     # from inside another recipe
     
     service "celerymon-#{params[:name]}" do
-      provider Chef::Provider::Service::Init
+      provider Chef::Provider::Service::Simple
       supports :start => true, :stop => true, :restart => true, :status => true
       start_command "supervisorctl start celerymon-#{params[:name]}"
       stop_command "supervisorctl stop celerymon-#{params[:name]}"

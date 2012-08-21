@@ -71,7 +71,7 @@ define :celery_worker, :enable => true, :virtualenv => false, :startsecs => 10, 
     # from inside another recipe
 
     service "celeryd-#{params[:name]}" do
-      provider Chef::Provider::Service::Init
+      provider Chef::Provider::Service::Simple
       supports :start => true, :stop => true, :restart => true, :status => true
       start_command "supervisorctl start celeryd-#{params[:name]}"
       stop_command "supervisorctl stop celeryd-#{params[:name]}"
